@@ -1,0 +1,27 @@
+Arguments: 
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add react-native --exact
+
+PATH: 
+  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+Yarn version: 
+  1.22.5
+
+Node version: 
+  10.19.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: connect ECONNREFUSED 127.0.0.1:4873
+      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1107:14)
+
+npm manifest: 
+  {"name":"AwesomeProject","version":"0.0.1","private":true,"scripts":{"start":"node node_modules/react-native/local-cli/cli.js start"}}
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
