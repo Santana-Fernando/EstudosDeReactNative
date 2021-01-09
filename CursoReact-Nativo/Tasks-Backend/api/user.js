@@ -15,7 +15,7 @@ module.exports = app => {
             app.db('users')
                 .insert({
                     name: user.name,
-                    email: user.email,
+                    email: user.email.toLowerCase() ,
                     password
                 })
                 .then(_ => res.status(204).send())

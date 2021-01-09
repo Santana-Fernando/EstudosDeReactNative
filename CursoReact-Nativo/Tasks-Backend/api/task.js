@@ -42,7 +42,6 @@ module.exports = app => {
     }
 
     const updatrTaskDoneAt = (req, res, doneAt) => {
-        console.log(req.user)
         app.db('tasks')
             .where({ id: req.params.id, userId: req.user.id })
             .update({ doneAt })
