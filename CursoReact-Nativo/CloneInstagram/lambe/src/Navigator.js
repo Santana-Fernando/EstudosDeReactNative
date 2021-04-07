@@ -1,9 +1,28 @@
 import React from 'react'
-import { createAppContainer, createBottomTabNavigator } from 'react-navigation'
+import { createSwitchNavigator, createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import Feed from './screens/Feed'
 import AddPhoto from './screens/AddPhoto'
+import Profile from './screens/Profile'
+import Login from './screens/Login'
+import Register from './screens/Register'
+import Splash from './screens/splash'
+import { createUser } from './store/actions/user'
+
+const authRouter = createStackNavigator({
+    Login: { screen: Login, navigationOptions: { title: 'Login' } },
+    Register: { screen: Register, navigationOptions: { title: 'Register'}}
+},{
+    initialRouteName: 'Login'
+})
+
+const loginOrProfileRouter = createSwitchNavigator({
+    Profile: Profile,
+    Auth: authRouter
+}, {
+    initialRouteName: 'Auth'
+})
 
 const MenuRoutes = {
     Feed: {
@@ -28,7 +47,7 @@ const MenuRoutes = {
     },
     Profile: {
         name: 'Profile',
-        screen: Feed,
+        screen: loginOrProfileRouter,
         navigationOptions:{
             title: 'Profile',
             tabBarIcon: ({ tintColor }) => 
@@ -47,4 +66,11 @@ const MenuConfig = {
 
 const MenuNavigator = createBottomTabNavigator(MenuRoutes, MenuConfig)
 
-export default MenuNavigator
+const SplashRouter = createSwitchNavigator({
+    Splash: Splash,
+    App: MenuNavigator
+}, {
+    initialRouteName: 'Splash'
+})
+
+export default SplashRouter

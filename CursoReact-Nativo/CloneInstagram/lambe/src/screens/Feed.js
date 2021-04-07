@@ -1,35 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, View, FlatList } from 'react-native'
 import Header from '../componentes/Header'
 import Post from '../componentes/Post'
+import { fetchPosts } from '../store/actions/posts'
 
-class Feed extends Component {
-    state = {
-        posts: [
-            {
-                id: Math.random(),
-                nickname: 'Rafael Pereira Filho',
-                email: 'rafael@gmail.com',
-                image: require('../../assets/imgs/fence.jpg'),
-                comments: [
-                    {
-                        nickname: 'Paula mwlo',
-                        comment: 'Legal'
-                    },
-                    {
-                        nickname: 'Jacinto Pires',
-                        comment: 'Foda'
-                    }
-                ]
-            },
-            {
-                id: Math.random(),
-                nickname: 'Oscar Ney',
-                email: 'oscar@gmail.com',
-                image: require('../../assets/imgs/bw.jpg'),
-                comments: []
-            }
-        ]
+class Feed extends Component{
+
+    componentDidMount = () => {
+        this.props.onFetchPosts()
     }
 
     render(){
@@ -37,7 +16,7 @@ class Feed extends Component {
             <View style={styles.container}>
                 <Header/>
                 <FlatList 
-                    data={this.state.posts}
+                    data={this.props.posts}
                     keyExtractor={item => `${item.id}`}
                     renderItem={({ item }) =>
                         <Post key={item.id} {...item}/>
@@ -57,4 +36,16 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Feed
+const mapStateToProps = ({posts}) => {
+    return {
+        posts: posts.posts,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchPosts: () => dispatch(fetchPosts())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed)
